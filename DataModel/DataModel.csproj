@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>CaYoMi_BuJo.DataModel</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
 
 </Project>
