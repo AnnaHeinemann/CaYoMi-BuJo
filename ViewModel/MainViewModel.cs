@@ -3,6 +3,7 @@ using ViewModel.Factories;
 using ViewModel.Interfaces;
 using System;
 using ViewModel.Events;
+using Command;
 
 namespace ViewModel
 {
