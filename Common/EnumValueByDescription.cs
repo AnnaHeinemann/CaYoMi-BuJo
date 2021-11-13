@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Reflection;
 
 namespace EnumerationExtensions
@@ -19,15 +18,13 @@ namespace EnumerationExtensions
         {
             foreach (FieldInfo field in typeof(T).GetFields())
             {
-                DescriptionAttribute customAttribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+                DescriptionAttribute? customAttribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
 
-                if (customAttribute == null && field.Name == description)
+                if (((customAttribute == null && field.Name == description) ||
+                     (customAttribute != null && customAttribute.Description == description)) && 
+                    field.GetValue(null) is T returnType)
                 {
-                    return (T)field.GetValue(null);
-                }
-                else if (customAttribute != null && customAttribute.Description == description)
-                {
-                    return (T)field.GetValue(null);
+                    return returnType;
                 }
             }
 
