@@ -32,16 +32,4 @@ namespace ViewModel.DetailViewModels
             PageType = selectorItem.PageType;
         }
     }
-
-    public class SelectorItems
-    {
-
-        public PageTypes PageType { get; set; }
-
-        public string Name { get; set; }
-        
-        //public byte[] Icon { get; set; }
-
-        public string Description { get; set; }
-    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using ViewModel.Events;
 using ViewModel.Interfaces;
 
 namespace ViewModel.DetailViewModels
