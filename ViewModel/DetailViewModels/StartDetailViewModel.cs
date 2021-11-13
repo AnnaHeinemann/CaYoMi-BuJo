@@ -18,7 +18,7 @@ namespace ViewModel.DetailViewModels
             JustANameForTest.Add(new SelectorItems() { Name = "Adresses", Description = "All of my adresses", PageType = PageTypes.AdressPage });
             JustANameForTest.Add(new SelectorItems() { Name = "Habbits", Description = "Habbit trackers", PageType = PageTypes.HabbitTrackerPage });
 
-            SectionSelected = new Command<object>(onSectionSelected, (_) => true);
+            SectionSelected = new RelayCommand<object>(onSectionSelected, (_) => true);
         }
 
         private void onSectionSelected(object args)

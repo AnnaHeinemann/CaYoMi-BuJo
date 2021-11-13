@@ -51,7 +51,7 @@ namespace ViewModel
             _listViewModelFactory = new ListViewModelFactory();
             _detailViewModelFactory = new DetailViewModelFactory();
 
-            LoadedCommand = new Command<object>(onLoaded, (_) => true);
+            LoadedCommand = new RelayCommand<object>(onLoaded, (_) => true);
         }
 
         // Attention: the following works partly! The view models get created, BUT the window displays the start view using region manager
