@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace ViewModel
 {
+    /// <summary>
+    /// Extensions for enumerations
+    /// </summary>
     public static class EnumerationExtensions
     {
         /// <summary>
@@ -28,7 +31,7 @@ namespace ViewModel
                 }
             }
 
-            throw new ArgumentException("Didn't found.", nameof(description));
+            throw new ArgumentException("Couldn't find.", nameof(description));
         }
     }
 }
