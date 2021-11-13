@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using ViewModel.Events;
 
 namespace ViewModel.Interfaces
 {
@@ -8,20 +7,16 @@ namespace ViewModel.Interfaces
     /// </summary>
     public interface IViewModel
     {
+        /// <summary>
+        /// Event handler of the PageTypeChangedEvent
+        /// </summary>
         public event PageTypeChangedHandler PageTypeChanged;
 
+        /// <summary>
+        /// Current page type
+        /// </summary>
         public PageTypes PageType { get; set; }
     }
 
-    public delegate void PageTypeChangedHandler(object sender, PageTypeChangedEventArgs args);
-
-    public class PageTypeChangedEventArgs : CancelEventArgs
-    {
-        public PageTypes PageType { get; set; }
-
-        public PageTypeChangedEventArgs(PageTypes pageType)
-        {
-            PageType = pageType;
-        }
-    }
+    
 }
