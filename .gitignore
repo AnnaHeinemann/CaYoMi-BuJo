@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DataModel/BasePageEntity.cs
+/CaYoMi-BuJo/MainView.xaml.cs
