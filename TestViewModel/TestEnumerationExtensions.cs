@@ -1,4 +1,5 @@
-﻿using ViewModel;
+﻿using EnumerationExtensions;
+using ViewModel;
 using Xunit;
 
 namespace TestViewModel
