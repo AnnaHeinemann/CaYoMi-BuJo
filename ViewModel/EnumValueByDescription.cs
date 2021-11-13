@@ -2,20 +2,20 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace ViewModel
+namespace EnumerationExtensions
 {
     /// <summary>
-    /// Extensions for enumerations
+    /// Extensions for enumerations for getting the value of an enumeration by its DescriptionAttribute.
     /// </summary>
-    public static class EnumerationExtensions
+    public static class EnumValueByDescription
     {
         /// <summary>
-        /// Get enumeration value from its description
+        /// Get an enumeration value based on its DescriptionAttribute
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        public static T GetValueFromDescription<T>(string description) where T : Enum
+        /// <typeparam name="T">Type of the enumeration</typeparam>
+        /// <param name="description">Value of the DescriptionAttribute of the searched enumeration value</param>
+        /// <returns>Enumeration given by the value of its description attribute</returns>
+        public static T GetValueByDescription<T>(string description) where T : Enum
         {
             foreach (FieldInfo field in typeof(T).GetFields())
             {

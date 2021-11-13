@@ -18,7 +18,7 @@ namespace TestViewModel
         [InlineData("JournalPage", PageTypes.JournalPage)]
         public void GetValueFromDescription(string pageTypeDescription, PageTypes expectedResult)
         {
-            Assert.True(expectedResult == EnumerationExtensions.GetValueFromDescription<PageTypes>(pageTypeDescription));
+            Assert.True(expectedResult == EnumValueByDescription.GetValueByDescription<PageTypes>(pageTypeDescription));
         }
     }
 }

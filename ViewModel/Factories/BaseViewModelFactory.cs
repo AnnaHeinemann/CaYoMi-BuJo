@@ -1,4 +1,5 @@
-﻿using ViewModel.Interfaces;
+﻿using EnumerationExtensions;
+using ViewModel.Interfaces;
 
 namespace ViewModel.Factories
 {
@@ -14,7 +15,7 @@ namespace ViewModel.Factories
         /// <returns>Requested view model</returns>
         public IViewModel CreateViewModel(string pageTypeDescription)
         {
-            PageTypes pageType = EnumerationExtensions.GetValueFromDescription<PageTypes>(pageTypeDescription);
+            PageTypes pageType = EnumValueByDescription.GetValueByDescription<PageTypes>(pageTypeDescription);
 
             return CreateViewModel(pageType);
         }
