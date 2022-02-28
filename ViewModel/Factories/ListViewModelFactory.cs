@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using ViewModel.Interfaces;
+using ViewModel.ListViewModels;
 
 namespace ViewModel.Factories
 {
@@ -21,8 +22,7 @@ namespace ViewModel.Factories
                     return null;
 
                 case PageTypes.AdressPage:
-                    Debug.Assert(false, "Adress");
-                    return null;
+                    return new MainListViewModel();
 
                 case PageTypes.HabbitTrackerPage:
                     Debug.Assert(false, "Habbits");
