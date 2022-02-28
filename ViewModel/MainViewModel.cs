@@ -12,8 +12,8 @@ namespace ViewModel
     /// </summary>
     public class MainViewModel : BaseViewModel
     {
-        private ListViewModelFactory _listViewModelFactory;
-        private DetailViewModelFactory _detailViewModelFactory;
+        private ListViewModelFactory _listViewModelFactory = new ListViewModelFactory();
+        private DetailViewModelFactory _detailViewModelFactory = new DetailViewModelFactory();
 
         /// <summary>
         /// Gets or sets the title of the main view
@@ -49,13 +49,8 @@ namespace ViewModel
 
         public MainViewModel()
         {
-            _listViewModelFactory = new ListViewModelFactory();
-            _detailViewModelFactory = new DetailViewModelFactory();
-
             LoadedCommand = new RelayCommand<object>(onLoaded, (_) => true);
         }
-
-        // Attention: the following works partly! The view models get created, BUT the window displays the start view using region manager
 
         /// <summary>
         /// Loads data
@@ -71,15 +66,7 @@ namespace ViewModel
             updateListAndDetailView(pageTypeDescription);
         }
 
-        private void listViewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
-        {
-            if (args == null)
-                throw new ArgumentNullException("Argument of PageTypeChanged mustn't be null.");
-
-            updateListAndDetailView(args.PageType);
-        }
-
-        private void detailViewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
+        private void viewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
         {
             if (args == null)
                 throw new ArgumentNullException("Argument of PageTypeChanged mustn't be null.");
@@ -89,38 +76,40 @@ namespace ViewModel
 
         private void updateListAndDetailView(PageTypes pageType)
         {
-            if (_listViewModel != null)
-                _listViewModel.PageTypeChanged -= listViewModel_PageTypeChanged;
-
-            if (_detailViewModel != null)
-                _detailViewModel.PageTypeChanged -= detailViewModel_PageTypeChanged;
+            deAttachFromEvents();
 
             ListViewModel = _listViewModelFactory.CreateViewModel(pageType);
             DetailViewModel = _detailViewModelFactory.CreateViewModel(pageType);
 
-            if (_listViewModel != null)
-                _listViewModel.PageTypeChanged += listViewModel_PageTypeChanged;
-
-            if (_detailViewModel != null)
-                _detailViewModel.PageTypeChanged += detailViewModel_PageTypeChanged;
+            attachToEvents();
         }
 
         private void updateListAndDetailView(string pageTypeDescription)
         {
-            if (_listViewModel != null)
-                _listViewModel.PageTypeChanged -= listViewModel_PageTypeChanged;
-
-            if (_detailViewModel != null)
-                _detailViewModel.PageTypeChanged -= detailViewModel_PageTypeChanged;
+            deAttachFromEvents();
 
             ListViewModel = _listViewModelFactory.CreateViewModel(pageTypeDescription);
             DetailViewModel = _detailViewModelFactory.CreateViewModel(pageTypeDescription);
 
+            attachToEvents();
+        }
+
+        private void attachToEvents()
+        {
             if (_listViewModel != null)
-                _listViewModel.PageTypeChanged += listViewModel_PageTypeChanged;
+                _listViewModel.PageTypeChanged += viewModel_PageTypeChanged;
 
             if (_detailViewModel != null)
-                _detailViewModel.PageTypeChanged += detailViewModel_PageTypeChanged;
+                _detailViewModel.PageTypeChanged += viewModel_PageTypeChanged;
+        }
+
+        private void deAttachFromEvents()
+        {
+            if (_listViewModel != null)
+                _listViewModel.PageTypeChanged -= viewModel_PageTypeChanged;
+
+            if (_detailViewModel != null)
+                _detailViewModel.PageTypeChanged -= viewModel_PageTypeChanged;
         }
 
         // Load appsetting.json into ?

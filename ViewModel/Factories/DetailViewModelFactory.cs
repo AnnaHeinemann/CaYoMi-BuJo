@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using EnumerationExtensions;
+using System.Diagnostics;
 using ViewModel.DetailViewModels;
 using ViewModel.Interfaces;
 
@@ -25,11 +26,8 @@ namespace ViewModel.Factories
                     return new JournalPageDetailViewModel();
 
                 case PageTypes.AdressPage:
-                    Debug.Assert(false, "Adress");
-                    return null;
-
                 case PageTypes.HabbitTrackerPage:
-                    Debug.Assert(false, "Habbits");
+                    Debug.Assert(false, pageType.GetDescriptionOrName());
                     return null;
 
                 default:

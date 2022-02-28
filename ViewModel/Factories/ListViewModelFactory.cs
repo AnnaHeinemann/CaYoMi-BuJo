@@ -1,6 +1,5 @@
 ﻿using EnumerationExtensions;
 using System;
-using System.Diagnostics;
 using ViewModel.Interfaces;
 using ViewModel.ListViewModels;
 
