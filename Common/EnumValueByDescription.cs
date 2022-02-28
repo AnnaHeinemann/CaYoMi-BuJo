@@ -9,16 +9,16 @@ namespace EnumerationExtensions
     public static class EnumValueByDescription
     {
         /// <summary>
-        /// Get an enumeration value based on its DescriptionAttribute
+        /// Gets an enumeration instance of type T with a value based on its DescriptionAttribute
         /// </summary>
         /// <typeparam name="T">Type of the enumeration</typeparam>
         /// <param name="description">Value of the DescriptionAttribute of the searched enumeration value</param>
-        /// <returns>Enumeration given by the value of its description attribute</returns>
+        /// <returns>Instance of type T with enumeration value given by the value of its DescriptionAttribute</returns>
         public static T GetValueByDescription<T>(string description) where T : Enum
         {
             foreach (FieldInfo field in typeof(T).GetFields())
             {
-                DescriptionAttribute? customAttribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+                var customAttribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
 
                 if (((customAttribute == null && field.Name == description) ||
                      (customAttribute != null && customAttribute.Description == description)) && 

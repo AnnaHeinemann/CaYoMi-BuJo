@@ -68,6 +68,45 @@ namespace ViewModel
             if (!(args is string pageTypeDescription))
                 throw new ArgumentException("Argument of onLoaded has to be of type string.");
 
+            updateListAndDetailView(pageTypeDescription);
+        }
+
+        private void listViewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
+        {
+            if (args == null)
+                throw new ArgumentNullException("Argument of PageTypeChanged mustn't be null.");
+
+            updateListAndDetailView(args.PageType);
+        }
+
+        private void detailViewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
+        {
+            if (args == null)
+                throw new ArgumentNullException("Argument of PageTypeChanged mustn't be null.");
+
+            updateListAndDetailView(args.PageType);
+        }
+
+        private void updateListAndDetailView(PageTypes pageType)
+        {
+            if (_listViewModel != null)
+                _listViewModel.PageTypeChanged -= listViewModel_PageTypeChanged;
+
+            if (_detailViewModel != null)
+                _detailViewModel.PageTypeChanged -= detailViewModel_PageTypeChanged;
+
+            ListViewModel = _listViewModelFactory.CreateViewModel(pageType);
+            DetailViewModel = _detailViewModelFactory.CreateViewModel(pageType);
+
+            if (_listViewModel != null)
+                _listViewModel.PageTypeChanged += listViewModel_PageTypeChanged;
+
+            if (_detailViewModel != null)
+                _detailViewModel.PageTypeChanged += detailViewModel_PageTypeChanged;
+        }
+
+        private void updateListAndDetailView(string pageTypeDescription)
+        {
             if (_listViewModel != null)
                 _listViewModel.PageTypeChanged -= listViewModel_PageTypeChanged;
 
@@ -79,34 +118,6 @@ namespace ViewModel
 
             if (_listViewModel != null)
                 _listViewModel.PageTypeChanged += listViewModel_PageTypeChanged;
-
-            if (_detailViewModel != null)
-                _detailViewModel.PageTypeChanged += detailViewModel_PageTypeChanged;
-        }
-
-        private void listViewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
-        {
-            if (args == null)
-                throw new ArgumentNullException("Argument of PageTypeChanged mustn't be null.");
-
-            if (_listViewModel != null)
-                _listViewModel.PageTypeChanged -= listViewModel_PageTypeChanged;
-
-            ListViewModel = _listViewModelFactory.CreateViewModel(args.PageType);
-
-            if (_listViewModel != null)
-                _listViewModel.PageTypeChanged += listViewModel_PageTypeChanged;
-        }
-
-        private void detailViewModel_PageTypeChanged(object sender, PageTypeChangedEventArgs args)
-        {
-            if (args == null)
-                throw new ArgumentNullException("Argument of PageTypeChanged mustn't be null.");
-
-            if (_detailViewModel != null)
-                _detailViewModel.PageTypeChanged -= detailViewModel_PageTypeChanged;
-
-            DetailViewModel = _detailViewModelFactory.CreateViewModel(args.PageType);
 
             if (_detailViewModel != null)
                 _detailViewModel.PageTypeChanged += detailViewModel_PageTypeChanged;

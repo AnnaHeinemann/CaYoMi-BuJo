@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using EnumerationExtensions;
+using System;
+using System.Diagnostics;
 using ViewModel.Interfaces;
 using ViewModel.ListViewModels;
 
@@ -19,21 +21,13 @@ namespace ViewModel.Factories
             switch (pageType)
             {
                 case PageTypes.Start:
-                    return null;
-
+                case PageTypes.JournalPage:
                 case PageTypes.AdressPage:
+                case PageTypes.HabbitTrackerPage:
                     return new MainListViewModel();
 
-                case PageTypes.HabbitTrackerPage:
-                    Debug.Assert(false, "Habbits");
-                    return null;
-
-                case PageTypes.JournalPage:
-                    Debug.Assert(false, "Journal");
-                    return null;
-
                 default:
-                    return null;
+                    throw new ArgumentException(string.Concat("Page type ", pageType.GetDescriptionOrName(), " isn't valid."));
             }
         }
     }
