@@ -5,31 +5,49 @@
     /// </summary>
     public class RelayCommand<T> : RelayCommandBase
     {
+        /// <summary>
+        /// Action to execute
+        /// </summary>
         private Action<T> _action;
-        private Func<T, bool>? _canExecute;
+
+        /// <summary>
+        /// Can action be executed?
+        /// </summary>
+        private Func<T, bool> _canExecute;
 
         /// <summary>
         /// Constructor of a Command
         /// </summary>
         /// <param name="action">Action that should be executed</param>
         /// <param name="canExecute">Function that determines if action can be executed</param>
-        public RelayCommand(Action<T> action, Func<T, bool>? canExecute = null)
+        public RelayCommand(Action<T> action, Func<T, bool> canExecute = null)
         {
             _action = action;
             _canExecute = canExecute;
         }
 
-        /// <summary>
-        /// Checks if the action of the Command can be executed
-        /// </summary>
-        /// <param name="parameter">Parameter required for checking if action can be executed</param>
-        /// <returns>True: if action can be executed; false: otherwise</returns>
-        public bool CanExecute(T parameter) => _canExecute == null || _canExecute(parameter);
+        /// <inheritdoc/>
+        public override event EventHandler CanExecuteChanged;
 
-        /// <summary>
-        /// Executes the action of the Command
-        /// </summary>
-        /// <param name="parameter">Parameter required by for execution of the action of the Command</param>
-        public void Execute(T parameter) => _action(parameter);
+        /// <inheritdoc/>
+        public override void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+
+        /// <inheritdoc/>
+        public override bool CanExecute(object parameter)
+        {
+            if (parameter is not T paramT)
+                throw new ArgumentException();
+
+            return _canExecute(paramT); 
+        }
+
+        /// <inheritdoc/>
+        public override void Execute(object parameter)
+        {
+            if (parameter is not T paramT)
+                throw new ArgumentException();
+
+            _action((T)parameter);
+        }
     }
 }

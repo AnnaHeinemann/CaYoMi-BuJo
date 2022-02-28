@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using ViewModel;
 
 namespace CaYoMi_BuJo
 {
@@ -14,7 +15,11 @@ namespace CaYoMi_BuJo
         public MainView()
         {
             InitializeComponent();
-            DataContext = Activator.CreateInstance(ViewModelToViewConverter.GetViewModelTypeByViewType(GetType()));
+
+            Type viewModelType = ViewModelToViewConverter.GetViewModelTypeByViewType(GetType());
+
+            //DataContext = Activator.CreateInstance(viewModelType);
+            DataContext = new MainViewModel();
         }
     }
 }
