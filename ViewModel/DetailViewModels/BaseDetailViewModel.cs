@@ -1,13 +1,11 @@
 ﻿using System.Windows.Input;
-using ViewModel.Events;
-using ViewModel.Interfaces;
 
 namespace ViewModel.DetailViewModels
 {
     /// <summary>
     /// Base view model of journal page view model
     /// </summary>
-    public abstract class BaseDetailViewModel : BaseViewModel, IViewModel
+    public abstract class BaseDetailViewModel : BaseViewModel
     {
         /// <summary>
         /// Default constructor
@@ -16,8 +14,6 @@ namespace ViewModel.DetailViewModels
         {
             //AddNewPageCommand = new DelegateCommand<object>(onAddNewPage, canAddNewPage);
         }
-
-        public event PageTypeChangedHandler PageTypeChanged;
 
         #region properties
 
@@ -39,17 +35,6 @@ namespace ViewModel.DetailViewModels
         /// Command for adding a new page
         /// </summary>
         public ICommand AddNewPageCommand { get; private set; }
-
-        private PageTypes _pageType;
-        public PageTypes PageType 
-        { 
-            get => _pageType;
-            set
-            {
-                if (SetProperty(ref _pageType, value))
-                    PageTypeChanged?.Invoke(this, new PageTypeChangedEventArgs(PageType));
-            } 
-        }
 
         #endregion
 
